@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Sara ❤️</title>
+
+<!-- Premium serif font (after YES only) -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Poppins","Segoe UI",sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #ffffff, #ffe6f0);
+  transition: background 3.5s ease-in-out;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,182,193,.28) 20%, transparent 21%),
+    radial-gradient(circle, rgba(255,105,180,.18) 20%, transparent 21%);
+  background-size: 140px 140px;
+  animation: bubbles 40s linear infinite;
+  z-index: -1;
+}
+
+@keyframes bubbles {
+  from { background-position: 0 0, 70px 70px; }
+  to   { background-position: 700px 900px, 770px 970px; }
+}
+
+.box {
+  text-align: center;
+  max-width: 760px;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: #9b003f;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 34px;
+}
+
+button {
+  padding: 15px 32px;
+  font-size: 20px;
+  margin: 12px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+button:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 18px rgba(0,0,0,.15);
+}
+
+#yes {
+  background: linear-gradient(135deg, #ff2f6d, #ff5fa2);
+  color: white;
+}
+
+#no {
+  background-color: #9e9e9e;
+  color: white;
+  position: absolute;
+}
+
+#afterYes {
+  display: none;
+  width: 100%;
+}
+
+.thanks {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #7a0033;
+  margin-bottom: 26px;
+}
+
+.quote {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #4a0020;
+  line-height: 1.9;
+  letter-spacing: .3px;
+  min-height: 280px;
+}
+
+.name {
+  color: #ff1f8f;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255,31,143,.85);
+  animation: glow 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 6px rgba(255,31,143,.6); }
+  to   { text-shadow: 0 0 16px rgba(255,31,143,1); }
+}
+
+img {
+  width: 300px;
+  margin-top: 28px;
+  border-radius: 20px;
+  box-shadow: 0 14px 32px rgba(0,0,0,.25);
+}
+
+.heart {
+  position: fixed;
+  font-size: 22px;
+  animation: floatUp 6s ease-in forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0) scale(1); opacity: 1; }
+  to   { transform: translateY(-760px) scale(1.4); opacity: 0; }
+}
+
+.after-yes-mode {
+  font-family: "Playfair Display", serif;
+}
+
+.after-yes-mode .thanks,
+.after-yes-mode .quote {
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0,0,0,.35);
+  animation: fadeInSoft 1.8s ease forwards;
+}
+
+.after-yes-mode .name {
+  color: #ffffff;
+  text-shadow: 0 0 16px rgba(255,255,255,1);
+}
+
+@keyframes fadeInSoft {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1 id="question">Sara Patwal, will you be my Valentine? ❤️</h1>
+
+  <button id="yes">Yes 💖</button>
+  <button id="no">No 🙈</button>
+
+  <div id="afterYes">
+    <div class="thanks">
+      Thank you for choosing me, <span class="name">Sara</span>.  
+      You just made my world infinitely brighter ✨
+    </div>
+
+    <div class="quote" id="quote"></div>
+
+    <img src="https://media.giphy.com/media/3o6ZtpxSZbQRRnwCKQ/giphy.gif" alt="romantic gif">
+  </div>
+</div>
+
+<!-- Background music element -->
+<audio id="bgMusic" preload="auto">
+  <source src="https://raw.githubusercontent.com/Rahulchoudhary2108/valentine/main/Main%20Agar%20Kahoon%20Om%20Shanti%20Om%20320%20Kbps.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const afterYes = document.getElementById("afterYes");
+const quoteDiv = document.getElementById("quote");
+const question = document.getElementById("question");
+const music = document.getElementById("bgMusic");
+
+function moveNo() {
+  const maxX = window.innerWidth - noBtn.offsetWidth - 10;
+  const maxY = window.innerHeight - noBtn.offsetHeight - 10;
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top  = Math.random() * maxY + "px";
+}
+
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("click", moveNo);
+
+yesBtn.addEventListener("click", () => {
+  // mobile haptic
+  if (navigator.vibrate) navigator.vibrate([30,40,30]);
+
+  yesBtn.remove();
+  noBtn.remove();
+  question.remove();
+
+  document.body.style.background =
+    "radial-gradient(circle at center, #ff8fbf, #ff2f7d)";
+
+  afterYes.style.display = "block";
+  afterYes.classList.add("after-yes-mode");
+
+  // fade-in music
+  music.volume = 0;
+  music.play();
+  let vol = 0;
+  const fade = setInterval(() => {
+    vol += 0.02;
+    music.volume = Math.min(vol, 0.6);
+    if (vol >= 0.6) clearInterval(fade);
+  }, 200);
+
+  startTyping();
+  hearts();
+});
+
+const text = `Ek anjaan ladki jisse main kabhi mila bhi nahi tha,
+dekha nahi tha,
+mujhe meri zindagi ki sabse keemti cheez ban gayi.
+
+Badi aasani se usne keh diya ki
+<span class="name">Sara</span> aapse mohabbat karti hain.
+
+Aur mujhse ek sawaal kar baithi —
+<span class="name">Sara</span> se kitni mohabbat karte hain?
+
+Main <span class="name">Sara</span> se kitni mohabbat karta hoon,
+is sawaal ka jawaab mere paas
+uss din bhi nahi tha…
+aur aaj bhi nahi hai.`;
+
+let i = 0;
+function startTyping() {
+  const interval = setInterval(() => {
+    quoteDiv.innerHTML = text.slice(0, i);
+    i++;
+    if (i > text.length) clearInterval(interval);
+  }, 38);
+}
+
+function hearts() {
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "💖";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.bottom = "-20px";
+    h.style.fontSize = 22 + Math.random()*18 + "px";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 6000);
+  }, 120);
+}
+</script>
+
+</body>
+</html>
